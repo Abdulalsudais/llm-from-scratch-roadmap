@@ -58,44 +58,122 @@ const SETUP_SOFTWARES = [
   {
     name: "Python 3.11 (64-bit)",
     role: "Core runtime for scripts, training loops & PyTorch",
+    whereUsed: "Used by OpenAI, Meta, and Hugging Face as the primary orchestration language for training pipelines, tokenizers, and inference APIs.",
+    whatYouBuild: "Your custom BPE tokenizer, micrograd autograd engine, GPT model classes, and training loop.",
     url: "https://www.python.org/downloads/",
     winget: "winget install -e --id Python.Python.3.11"
   },
   {
     name: "Visual Studio Code",
     role: "Code editor, integrated terminal & Python debugger",
+    whereUsed: "Used across AI engineering teams to inspect multi-dimensional PyTorch tensor shapes, debug training crashes, and run Jupyter notebooks side-by-side.",
+    whatYouBuild: "Your modular Python project files (tokenizer.py, model.py, train.py, app.py) with live variable inspection.",
     url: "https://code.visualstudio.com/",
     winget: "winget install -e --id Microsoft.VisualStudioCode"
   },
   {
     name: "Git for Windows + GitHub",
     role: "Version control, commits, branches & repo hosting",
+    whereUsed: "Used by every open-source and enterprise AI team (such as nanoGPT and Llama repos) to track model architecture experiments and roll back broken hyperparameter changes.",
+    whatYouBuild: "Versioned checkpoints of your LLM codebase as you progress from micrograd to full GPT pretraining.",
     url: "https://git-scm.com/downloads/win",
     winget: "winget install -e --id Git.Git"
   },
   {
     name: "Ollama",
     role: "Run small pretrained models locally on your PC",
+    whereUsed: "Used by developers and enterprises for private, offline local LLM inference (running quantized Llama 3, Qwen, or Gemma models on consumer laptops).",
+    whatYouBuild: "A local reference model server to benchmark latency, prompt templates, and output quality against your from-scratch GPT.",
     url: "https://ollama.com/download",
     winget: "winget install -e --id Ollama.Ollama"
   }
 ];
 
 const SETUP_PACKAGES = [
-  { name: "torch", desc: "PyTorch deep learning & tensor autograd engine" },
-  { name: "numpy", desc: "Fast C-powered multi-dimensional array math" },
-  { name: "transformers", desc: "Reference model architectures & weights" },
-  { name: "tokenizers", desc: "Fast Rust-backed BPE subword tokenizers" },
-  { name: "datasets", desc: "Load & stream text datasets cleanly" },
-  { name: "jupyterlab", desc: "Interactive notebooks for step-by-step testing" },
-  { name: "pandas", desc: "Tabular dataset inspection & cleaning" },
-  { name: "matplotlib", desc: "Plot training/validation loss & LR curves" },
-  { name: "pytest", desc: "Unit tests for tensor shapes & model outputs" },
-  { name: "mlflow", desc: "Track experiment metrics, params & runs" },
-  { name: "fastapi", desc: "Wrap your LLM in a local REST API" },
-  { name: "uvicorn", desc: "Local ASGI web server to run FastAPI" },
-  { name: "requests", desc: "Send HTTP test prompts to your local API" },
-  { name: "lxml", desc: "Fast XML/HTML corpus parsing helper" }
+  {
+    name: "torch",
+    desc: "PyTorch deep learning & tensor autograd engine",
+    whereUsed: "Powers Meta Llama 3, Tesla AI, and most frontier research labs for GPU matrix math and automatic backpropagation.",
+    whatYouBuild: "Self-Attention heads, LayerNorm, SwiGLU MLPs, LoRA adapters, and your full Decoder-Only GPT."
+  },
+  {
+    name: "numpy",
+    desc: "Fast C-powered multi-dimensional array math",
+    whereUsed: "Used across every ML data pipeline for fast CPU array manipulation, vector similarity, and preprocessing before GPU transfer.",
+    whatYouBuild: "Vector cosine-similarity visualizers, Softmax/Cross-Entropy prototypes, and memory-mapped token arrays."
+  },
+  {
+    name: "transformers",
+    desc: "Reference model architectures & pretrained weights",
+    whereUsed: "Industry standard library for downloading open-source checkpoints (GPT-2, Llama, Gemma) and verifying architecture parity.",
+    whatYouBuild: "Weight-loading scripts that copy open GPT-2 124M weights directly into your custom PyTorch classes."
+  },
+  {
+    name: "tokenizers",
+    desc: "Fast Rust-backed BPE subword tokenizers",
+    whereUsed: "Used in production LLM servers to encode/decode 100k+ token vocabularies in microseconds.",
+    whatYouBuild: "High-speed reference tokenizers to benchmark against your pure-Python BPE tokenizer."
+  },
+  {
+    name: "datasets",
+    desc: "Load, stream & slice large text corpora cleanly",
+    whereUsed: "Used to stream terabytes of pretraining text (FineWeb, TinyStories, WikiText) without running out of laptop RAM.",
+    whatYouBuild: "Clean train/validation text pipelines feeding sliding-window token chunks into your GPT."
+  },
+  {
+    name: "jupyterlab",
+    desc: "Interactive notebooks for step-by-step testing",
+    whereUsed: "Used by AI researchers to inspect attention heatmaps, tensor shapes, and loss curves cell-by-cell.",
+    whatYouBuild: "Interactive scratchpads for micrograd graphs, causal mask matrices, and prompt generation tests."
+  },
+  {
+    name: "pandas",
+    desc: "Tabular dataset inspection & cleaning",
+    whereUsed: "Used in SFT/fine-tuning workflows to filter noisy Q&A pairs, check prompt lengths, and deduplicate records.",
+    whatYouBuild: "Clean instruction-tuning datasets formatted for Supervised Fine-Tuning (SFT)."
+  },
+  {
+    name: "matplotlib",
+    desc: "Plot training/validation loss & LR curves",
+    whereUsed: "Used to spot overfitting, exploding gradients, and learning-rate warmup schedules visually.",
+    whatYouBuild: "Train vs. validation loss charts, cosine LR curves, and attention-weight heatmaps."
+  },
+  {
+    name: "pytest",
+    desc: "Automated unit tests for tensor shapes & outputs",
+    whereUsed: "Used in production ML CI/CD pipelines to ensure architectural edits don't break output shapes or determinism.",
+    whatYouBuild: "Automated shape tests and 20-prompt regression checks for your fine-tuned assistant."
+  },
+  {
+    name: "mlflow",
+    desc: "Track experiment metrics, hyperparams & runs",
+    whereUsed: "Used by ML teams to compare perplexity, learning rates, and checkpoints across dozens of training runs.",
+    whatYouBuild: "A local experiment dashboard logging your GPT's loss and perplexity at every step."
+  },
+  {
+    name: "fastapi",
+    desc: "Wrap your LLM in a typed local REST API",
+    whereUsed: "Powers high-throughput Python AI microservices and OpenAI-compatible inference gateways.",
+    whatYouBuild: "A POST /v1/generate web endpoint with Pydantic validation serving your custom GPT."
+  },
+  {
+    name: "uvicorn",
+    desc: "Fast local ASGI web server to run FastAPI",
+    whereUsed: "Used in production containers to serve concurrent HTTP requests to FastAPI model endpoints.",
+    whatYouBuild: "The live localhost server hosting your LLM API and interactive /docs Swagger UI."
+  },
+  {
+    name: "requests",
+    desc: "Send HTTP test prompts to local or cloud APIs",
+    whereUsed: "Used in client scripts and evaluation harnesses to query LLM endpoints and measure response latency.",
+    whatYouBuild: "A Python client script that sends prompts to both your FastAPI GPT and Ollama to compare outputs."
+  },
+  {
+    name: "lxml",
+    desc: "Fast XML/HTML corpus parsing helper",
+    whereUsed: "Used when cleaning raw web scrapes, Wikipedia dumps, or structured documentation into plain training text.",
+    whatYouBuild: "Clean corpus extractors stripping HTML/XML tags before BPE tokenization."
+  }
 ];
 
 const SETUP_COMMANDS_TEXT = `# 1. Create project folder & isolated Python 3.11 virtual environment
@@ -128,6 +206,15 @@ const ROADMAP_PHASES = [
     title: "Python, NumPy & PyTorch Foundations for LLMs",
     subtitle: "Master clean Python OOP, NumPy broadcasting, the (B, T, C) tensor shape mental model, and probability/loss math before writing neural nets.",
     plainBigPicture: "An LLM is really just a giant calculator that reads numbers representing words and predicts the probability of the next word. Before building the brain, you need Python (the glue language), NumPy (a fast math library for grids of numbers), and PyTorch (an AI framework that runs those grids on your GPU).",
+    liveAiBridge: {
+      headline: "Where Live Running AIs Use Phase 1 Skills",
+      summary: "Every time you type a prompt into ChatGPT, Claude, or Llama 3, the server packages your conversation into a 3D PyTorch tensor (Batch, Tokens, Hidden_Dim), runs matrix multiplications on NVIDIA GPUs, and uses Softmax to pick the next word's probability.",
+      examples: [
+        "OpenAI & Anthropic APIs: Your 'temperature' and 'logprobs' sliders directly manipulate the Softmax logits math you learn in Module 1.5.",
+        "Meta Llama 3 & Mistral configs: Open-source model repos define their entire architecture using the exact Python @dataclass config pattern from Module 1.1.",
+        "vLLM / PyTorch Inference Servers: Production GPUs batch multiple users' chats together along the 'B' (Batch) axis you master in Module 1.3."
+      ]
+    },
     jargonDecoder: [
       { term: "LLM", def: "Next-word probability predictor" },
       { term: "NumPy", def: "Fast grid-of-numbers math library" },
@@ -149,6 +236,7 @@ const ROADMAP_PHASES = [
         title: "Python Data Structures, OOP & Clean ML Code",
         duration: "2 Days",
         plainEnglish: "Python is the programming language we use to orchestrate everything. Because an AI model has hundreds of configurable knobs (layers, heads, vocabulary size), we bundle them cleanly inside Python 'Classes' (reusable blueprints) and isolate our tools in a '.venv' folder using 'pip' so nothing breaks your computer.",
+        liveExample: "Meta's official Llama-3 repository and Hugging Face Transformers define every model's blueprint (ModelArgs dataclass + nn.Module classes) using this exact Python OOP pattern—allowing engineers to switch between an 8B and 70B model simply by changing config fields.",
         jargonTerms: [
           { term: "Python 3.11", def: "The human-readable programming language used to write AI scripts." },
           { term: ".venv (Virtual Env)", def: "An isolated sandbox folder holding project packages so different projects never clash." },
@@ -191,6 +279,7 @@ print(f"Model width: {cfg.emb_dim}, Head dim: {cfg.emb_dim // cfg.n_heads}")`,
         title: "Vectors, Matrices & Broadcasting in NumPy",
         duration: "3 Days",
         plainEnglish: "Standard Python lists are far too slow for AI because Python checks data types one item at a time. NumPy stores numbers in contiguous C-memory blocks so your CPU can multiply millions of numbers simultaneously. A 'Vector' is just a 1D list of numbers, and a 'Matrix' is a 2D table of numbers.",
+        liveExample: "Semantic search engines, Pinecone/Chroma vector databases, and ChatGPT's RAG file-upload search turn your PDF paragraphs into vectors and run the exact dot-product cosine similarity (X @ X.T) from this module to find the most relevant page in milliseconds.",
         jargonTerms: [
           { term: "NumPy", def: "Numerical Python—a C-powered library for ultra-fast array math." },
           { term: "Vector", def: "A 1D list of numbers (e.g., [0.2, -0.5, 0.8]) representing a word's meaning." },
@@ -231,6 +320,7 @@ print("Pairwise similarity (4x4):\\n", np.round(X @ X.T, 2))`,
         title: "Matrix Multiplication & Tensor Shapes (B, T, C) Mental Model",
         duration: "3 Days",
         plainEnglish: "Think of a 'Tensor' as a stack of spreadsheets. Throughout an entire LLM, data travels in a 3D box shaped (B, T, C): B is how many sentences we process at once (Batch), T is how many words are in each sentence (Time/Tokens), and C is how many numbers describe each word (Channels).",
+        liveExample: "When ChatGPT serves thousands of users simultaneously, its inference engine groups 64 users' prompts into one (B=64, T=512, C=4096) tensor so a single GPU matrix multiplication computes the next word for all 64 users at the exact same time.",
         jargonTerms: [
           { term: "Tensor", def: "A generalized container of numbers (1D list, 2D table, or 3D+ cube)." },
           { term: "B (Batch Size)", def: "Number of separate sentences processed in parallel for speed." },
@@ -268,6 +358,7 @@ print("Transformed tensor shape:", y.shape)`,
         title: "PyTorch Tensors, Device Management & Vectorization",
         duration: "2 Days",
         plainEnglish: "PyTorch is like NumPy with two superpowers: it can run calculations on a graphics card (GPU) 50× faster than a CPU, and it automatically remembers every math operation so it can teach the AI later. 'Vectorization' simply means doing math on the whole grid at once instead of slow Python loops.",
+        liveExample: "Every open-weight model you run locally via Ollama, LM Studio, or Hugging Face uses PyTorch's .to(device) and vectorized tensor kernels to automatically route math onto your NVIDIA CUDA GPU or Apple Silicon M-series chip without rewriting a single math equation.",
         jargonTerms: [
           { term: "PyTorch", def: "Meta's open-source Python library for building and training neural networks." },
           { term: "CUDA / GPU", def: "Graphics card hardware designed to do thousands of matrix multiplications at once." },
@@ -305,6 +396,7 @@ print(f"Running on {device} | Mean shape: {mean.shape}")`,
         title: "Probability Distributions, Logits, Softmax & Cross-Entropy Loss",
         duration: "3 Days",
         plainEnglish: "When an LLM guesses the next word, it outputs a raw score ('Logit') for every word in its dictionary—like +2.5 for 'Paris' and -1.0 for 'banana'. 'Softmax' squashes those raw scores into percentages adding up to 100%, and 'Cross-Entropy Loss' is the penalty score grading how wrong the guess was.",
+        liveExample: "In the OpenAI Playground and API, enabling 'logprobs=True' exposes the exact Softmax token percentages you compute here—showing why ChatGPT was 94.2% sure the next word was 'Paris' vs. 3.1% for 'Lyon'.",
         jargonTerms: [
           { term: "Logits", def: "Raw positive or negative scores before converting to percentages." },
           { term: "Softmax", def: "Math formula turning any list of numbers into probabilities between 0% and 100%." },
@@ -346,6 +438,15 @@ print(f"Probs: {probs.tolist()} | Cross-Entropy Loss: {loss.item():.4f}")`,
     title: "Neural Networks & Autograd from Scratch",
     subtitle: "Demystify 'magic' training loops by building a scalar backpropagation engine (micrograd) before graduating to PyTorch nn.Module.",
     plainBigPicture: "How does an AI actually 'learn' from its mistakes? Every calculation is recorded as a step-by-step recipe (a Computation Graph). When the model makes a wrong guess, 'Backpropagation' walks backward through that recipe using basic calculus to figure out which knobs ('Weights') to nudge slightly up or down.",
+    liveAiBridge: {
+      headline: "Where Live Running AIs Use Phase 2 Skills",
+      summary: "Every frontier model (GPT-4, Gemini, Llama 3, DeepSeek) acquired its coding, reasoning, and translation skills by running the exact PyTorch autograd + AdamW + SwiGLU loop you build in Phase 2 across billions of text passages.",
+      examples: [
+        "Llama 3, Mistral & Gemma MLP Layers: Two-thirds of the weights inside these live models are the exact SwiGLU feed-forward networks you code in Module 2.3.",
+        "Frontier Pretraining Clusters: OpenAI, Meta, and xAI train multi-billion-parameter models using the exact AdamW optimizer + gradient accumulation loop from Module 2.4.",
+        "Production Inference Mode: Every live chatbot runs behind model.eval() (Module 2.5) so Dropout layers stop dropping neurons when answering real users."
+      ]
+    },
     jargonDecoder: [
       { term: "Weights", def: "Adjustable numbers inside the AI brain" },
       { term: "Gradient", def: "Direction to nudge a weight to reduce error" },
@@ -366,6 +467,7 @@ print(f"Probs: {probs.tolist()} | Cross-Entropy Loss: {loss.item():.4f}")`,
         title: "Computation Graphs & The Chain Rule",
         duration: "2 Days",
         plainEnglish: "Imagine a chain of dominoes or gears: turning Gear A turns Gear B twice as fast, and Gear B turns Gear C three times as fast—so Gear C moves 2 × 3 = 6 times as fast as Gear A. That simple multiplication of step-by-step sensitivities is the 'Chain Rule', and it's all you need to train an LLM.",
+        liveExample: "During fine-tuning of a customer-support LLM, PyTorch builds a dynamic computation graph linking the final wrong word back through 32 Transformer layers—using the Chain Rule to pinpoint which attention weights caused the factual error.",
         jargonTerms: [
           { term: "Computation Graph", def: "A flowchart showing every add/multiply step from input to final error." },
           { term: "Derivative / Gradient", def: "How much the final error changes if you nudge one number slightly." },
@@ -401,6 +503,7 @@ dloss_dw = dloss_ddiff * x # -12.0 (increase w to lower loss!)`,
         title: "Building micrograd: Scalar Autograd Engine",
         duration: "4 Days",
         plainEnglish: "When you call 'loss.backward()' in PyTorch, it feels like magic. Here you will build your own tiny 100-line clone of PyTorch's brain ('micrograd') using plain Python numbers so you see every line of code behind automatic differentiation.",
+        liveExample: "PyTorch's C++ autograd engine and Google JAX's autodiff system are scaled-up tensor versions of your micrograd Value class—recording every forward math op on a tape and replaying ._backward() in reverse topological order during training.",
         jargonTerms: [
           { term: "Autograd", def: "Automatic differentiation—computing gradients automatically without hand-math." },
           { term: "Backpropagation", def: "Running the Chain Rule backward from the final loss to every weight." },
@@ -442,6 +545,7 @@ dloss_dw = dloss_ddiff * x # -12.0 (increase w to lower loss!)`,
         title: "Neurons, Layers, MLPs & Non-Linear Activations (ReLU, GELU, SwiGLU)",
         duration: "3 Days",
         plainEnglish: "A single artificial 'Neuron' simply multiplies inputs by weights, adds them up, and passes the result through a curve ('Activation Function' like GELU or SwiGLU) so the network can learn complex patterns instead of only straight lines. Stacking layers of neurons creates an 'MLP'—the memory bank inside every Transformer block.",
+        liveExample: "AI interpretability researchers (such as Anthropic's mechanistic interpretability team) discovered that factual knowledge like 'The Eiffel Tower is in Paris' is stored inside the exact MLP neuron layers you build here—and Llama 3 & Qwen use your exact SwiGLU block.",
         jargonTerms: [
           { term: "Neuron", def: "A tiny math unit: weighted sum of inputs + bias + activation curve." },
           { term: "MLP", def: "Multi-Layer Perceptron—a stack of linear layers with activation curves between them." },
@@ -481,6 +585,7 @@ class SwiGLU(nn.Module):
         title: "Gradient Descent, Learning Rate & AdamW Optimizer",
         duration: "3 Days",
         plainEnglish: "Imagine standing blindfolded on a mountain and trying to reach the lowest valley by feeling the slope under your feet. 'Gradient Descent' takes steps downhill; 'Learning Rate' is your step size; and 'AdamW' is a smart GPS optimizer that takes bigger steps on flat terrain and smaller, careful steps on steep cliffs.",
+        liveExample: "Virtually every major open and proprietary LLM—including GPT-3, Llama 3, Qwen, and Mistral—is trained with AdamW using betas=(0.9, 0.95) and weight_decay=0.1, the exact hyperparameters in your code snippet.",
         jargonTerms: [
           { term: "Gradient Descent", def: "Stepping opposite to the gradient to steadily shrink prediction error." },
           { term: "Learning Rate (lr)", def: "How big of a nudge to apply to weights on each step (e.g., 0.0003)." },
@@ -518,6 +623,7 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4, betas=(0.9, 0.95), we
         title: "Training Loop Anatomy, Initialization & Vanishing/Exploding Gradients",
         duration: "3 Days",
         plainEnglish: "Before training starts, all weights are filled with tiny random numbers ('Initialization'). If those random numbers are too big, calculations blow up to infinity ('Exploding Gradients'); if too tiny, signals fade to zero ('Vanishing Gradients'). A clean 'Training Loop' repeats guess → grade → nudge thousands of times safely.",
+        liveExample: "Whenever a live API serves an LLM in production, the deployment pipeline calls model.eval() before accepting traffic; forgetting that single call in real ML teams has caused notorious production outages where live chatbots gave noisy, degraded answers.",
         jargonTerms: [
           { term: "Initialization", def: "Setting smart starting random numbers in weights before step 1." },
           { term: "Epoch / Step", def: "One batch update = 1 Step; one full pass through all data = 1 Epoch." },
@@ -558,6 +664,15 @@ def init_weights(module):
     title: "Text Tokenization & Data Pipelines",
     subtitle: "Convert raw text corpora into subword token IDs using Byte-Pair Encoding (BPE) and construct sliding-window PyTorch DataLoaders.",
     plainBigPicture: "Neural networks can only do math on numbers, never raw English letters. A 'Tokenizer' acts like a secret decoder ring: it chops text into common chunks ('Tokens') and assigns each chunk an integer ID. Then a 'DataLoader' slices a book into millions of fill-in-the-blank training puzzles.",
+    liveAiBridge: {
+      headline: "Where Live Running AIs Use Phase 3 Skills",
+      summary: "Every AI API bills you 'per 1 million tokens' and limits how many documents you can paste into its 'context window'—both are direct consequences of the Byte-Pair Encoding (BPE) tokenizer and special control tags you build in Phase 3.",
+      examples: [
+        "OpenAI Tiktoken & Llama-3 Tokenizers: GPT-4 (100k vocab) and Llama 3 (128k vocab) use the exact byte-level BPE merge algorithm you write in Module 3.3.",
+        "Why LLMs Struggle to Count 'r's in 'Strawberry': Because BPE groups 'straw' + 'berry' into 2 integer IDs, the model never sees individual letters—a quirk you test firsthand in Module 3.1.",
+        "ChatGPT Role Separation (<|im_start|>user): Chat apps prevent prompt injection and know when to stop replying using the exact special control tokens from Module 3.4."
+      ]
+    },
     jargonDecoder: [
       { term: "Token", def: "A word or common word-piece (e.g., 'ing')" },
       { term: "Tokenizer", def: "Translates text ↔ integer token IDs" },
@@ -578,6 +693,7 @@ def init_weights(module):
         title: "Character-Level vs. Word-Level vs. Subword Tokenization",
         duration: "2 Days",
         plainEnglish: "If we number every single letter (a=1, b=2), sentences become super long and hard to remember. If we number every whole dictionary word, the dictionary gets huge and crashes on typos. 'Subword Tokenization' splits rare words into reusable roots like 'un-' + 'believ' + '-able'.",
+        liveExample: "GitHub Copilot and Cursor generate code 3× faster than early models because their subword tokenizers merge common Python/JS indentation spaces ('    def ') into a single token ID instead of wasting 4 separate space tokens.",
         jargonTerms: [
           { term: "Character-Level", def: "1 token = 1 character (tiny vocab, very long sequences)." },
           { term: "Word-Level", def: "1 token = 1 whole word (huge vocab, fails on typos/new words)." },
@@ -608,6 +724,7 @@ def init_weights(module):
         title: "Unicode, UTF-8 Byte Encoding & Vocabulary Trade-offs",
         duration: "2 Days",
         plainEnglish: "Computers store text using 'UTF-8', which breaks any letter, Hindi/Tamil script, or emoji into 1 to 4 raw bytes (numbers 0–255). By starting our tokenizer with those 256 base bytes, our LLM can read literally any language or symbol on Earth without ever crashing on an 'unknown character'.",
+        liveExample: "Multilingual assistants like ChatGPT and Gemini can seamlessly translate Tamil, Hindi, Japanese, Python code, and emojis in a single sentence without <UNK> errors because their vocabularies start from the exact 256 raw UTF-8 bytes from this module.",
         jargonTerms: [
           { term: "Unicode", def: "Global standard assigning a unique number to every character and emoji." },
           { term: "UTF-8 Bytes", def: "Encoding any Unicode character into 1–4 byte integers (0 to 255)." },
@@ -639,6 +756,7 @@ print("Decoded back:", bytes(raw_bytes).decode("utf-8"))`,
         title: "Coding Byte-Pair Encoding (BPE) from Scratch (minbpe)",
         duration: "3 Days",
         plainEnglish: "Byte-Pair Encoding (BPE) is a super simple compression trick: scan a book, find the two tokens that appear side-by-side most often (like 't' and 'h'), mint a brand-new token ID for 'th', and repeat 50,000 times. Frequent words like ' the' become a single number!",
+        liveExample: "OpenAI's open-source 'tiktoken' library and Meta's Llama-3 tokenizer execute the exact merge_pair() lookup table you build here on every API request before a single GPU layer runs.",
         jargonTerms: [
           { term: "BPE (Byte-Pair Encoding)", def: "Iteratively merging the most frequent adjacent token pair into one new token." },
           { term: "Merge Table", def: "The ordered rulebook of pair merges learned during tokenizer training." },
@@ -676,6 +794,7 @@ print("Decoded back:", bytes(raw_bytes).decode("utf-8"))`,
         title: "Special Tokens (<|endoftext|>, PAD, BOS/EOS) & Context Windows",
         duration: "2 Days",
         plainEnglish: "How does an AI know where one Wikipedia article ends and another begins, or when it should stop replying to your chat message? We inject special 'control tag' tokens like <|endoftext|> into the vocabulary that act like punctuation marks for conversation boundaries.",
+        liveExample: "When you hit Send in ChatGPT or Ollama, the UI silently wraps your message in special tokens like <|im_start|>user ... <|im_end|><|im_start|>assistant—and the streaming reply stops the exact millisecond the model emits the <|im_end|> EOS token ID.",
         jargonTerms: [
           { term: "Special Tokens", def: "Reserved control IDs like <|endoftext|> or <|assistant|> never split by BPE." },
           { term: "EOS (End of Sequence)", def: "Stop-sign token telling the LLM 'my answer is finished, stop generating'." },
@@ -708,6 +827,7 @@ print("Decoded back:", bytes(raw_bytes).decode("utf-8"))`,
         title: "Sliding-Window Input/Target Pairs (X, Y) & PyTorch Dataset/DataLoader",
         duration: "2 Days",
         plainEnglish: "LLMs learn via self-supervised fill-in-the-blank: we don't need human labelers! We take any raw text sequence like [10, 20, 30, 40], set Input X = [10, 20, 30], and shift Target Y right by one slot to [20, 30, 40]. That single chunk gives 3 next-word prediction exercises at once!",
+        liveExample: "Foundation labs pack trillions of tokens from CommonCrawl, GitHub, and Wikipedia into fixed-length context chunks (e.g., 8,192 tokens) with Y shifted by 1 index—enabling a single GPU pass to grade 8,192 next-word predictions simultaneously.",
         jargonTerms: [
           { term: "Self-Supervised", def: "Training directly on raw unlabeled text by hiding the next word as the answer." },
           { term: "Input / Target (X, Y)", def: "Y is simply X shifted forward by 1 token (the 'next token' answer key)." },
@@ -752,6 +872,15 @@ class GPTDataset(Dataset):
     title: "Transformer Architecture & Self-Attention (The Heart of GPT)",
     subtitle: "Build every internal component of a Decoder-Only Transformer from scratch in pure PyTorch—from embeddings and QKV causal attention to stacked GPT blocks.",
     plainBigPicture: "This is the core engine behind ChatGPT, Claude, and Llama. First, token IDs become rich meaning vectors ('Embeddings'). Next, 'Self-Attention' lets words look back at earlier words for context (so 'it' knows whether you meant 'the trophy' or 'the suitcase'). Stacking these blocks creates a GPT!",
+    liveAiBridge: {
+      headline: "Where Live Running AIs Use Phase 4 Skills",
+      summary: "The Decoder-Only Transformer block you assemble in Phase 4 is the exact architectural blueprint running inside ChatGPT, Claude, Llama 3, Qwen, and DeepSeek—scaled up with more layers and wider embeddings.",
+      examples: [
+        "128K Long-Context Windows (Claude & Gemini): Powered by the RoPE positional rotations (Module 4.1) and Multi-Head Attention (Module 4.4) you implement here.",
+        "Real-Time Streaming Word-by-Word Output: Possible only because of the Causal Lower-Triangular Mask (Module 4.3), which ensures past tokens never change when new tokens are generated.",
+        "Deep 80–96 Layer Reasoning Models: Stay numerically stable from layer 1 to layer 96 thanks to the Pre-Norm + Residual Skip Connections you code in Module 4.5."
+      ]
+    },
     jargonDecoder: [
       { term: "Embedding", def: "List of numbers capturing a word's meaning" },
       { term: "Self-Attention", def: "Words looking back at earlier context words" },
@@ -772,6 +901,7 @@ class GPTDataset(Dataset):
         title: "Token Embeddings & Positional Encodings (Learned vs. Sinusoidal vs. RoPE)",
         duration: "3 Days",
         plainEnglish: "Token ID #4881 ('France') is just an arbitrary serial number—ID #4882 isn't 'similar to France'. An 'Embedding' translates each ID into a learned list of 256+ numbers where similar concepts sit close together. Because attention doesn't naturally know word order, we also add a 'Positional Encoding' stamp (Position 0, 1, 2...).",
+        liveExample: "Llama 3, Mistral, Qwen, and Gemma all use Rotary Position Embeddings (RoPE) from this module—allowing engineers to stretch a model's memory from 8,192 tokens out to 128,000 tokens so you can paste an entire codebase into one chat.",
         jargonTerms: [
           { term: "nn.Embedding", def: "A lookup table translating integer token IDs into rich decimal vectors." },
           { term: "Positional Embedding", def: "Order signal added to tokens so 'dog bites man' ≠ 'man bites dog'." },
@@ -807,6 +937,7 @@ x = tok_emb(idx) + pos_emb(torch.arange(T))`,
         title: "Query, Key, Value (QKV) Projections & Scaled Dot-Product Attention",
         duration: "4 Days",
         plainEnglish: "Think of Self-Attention like searching YouTube: every word emits a 'Query' (what I am looking for, like 'who performed this action?'), a 'Key' (what label I advertise, like 'I am a noun/subject'), and a 'Value' (the actual information I share if matched). High Query·Key match = strong attention!",
+        liveExample: "When you ask ChatGPT 'The trophy didn't fit in the suitcase because it was too big—what was too big?', QKV attention scores link 'it' strongly back to 'trophy' instead of 'suitcase' by matching semantic Queries and Keys.",
         jargonTerms: [
           { term: "Query (Q)", def: "Vector representing what context a token is currently searching for." },
           { term: "Key (K)", def: "Vector advertising what grammatical/semantic role a token holds." },
@@ -843,6 +974,7 @@ context = attn_weights @ V                         # Shape: (B, T, d_k)`,
         title: "Causal Masking (tril) for Autoregressive Next-Token Prediction",
         duration: "2 Days",
         plainEnglish: "During training, we feed an entire sentence into the GPU at once for speed. Without a 'Causal Mask', word #3 could cheat by peeking ahead at word #4! We cover the upper-right triangle of the attention grid with negative infinity (-inf) so future words get exactly 0% attention.",
+        liveExample: "Causal masking is the exact mathematical property that enables KV-Caching in ChatGPT and Ollama—because earlier tokens cannot see future tokens, their Key and Value vectors never change and can be cached in GPU RAM for instant typing speed.",
         jargonTerms: [
           { term: "Causal Mask", def: "Triangular barrier blocking tokens from peeking at future tokens." },
           { term: "torch.tril", def: "'Triangle Lower'—keeps the bottom-left triangle and zeroes out top-right." },
@@ -875,6 +1007,7 @@ print(torch.softmax(masked_scores, dim=-1))`,
         title: "Multi-Head Self-Attention & Tensor Reshaping / Concatenation",
         duration: "4 Days",
         plainEnglish: "Instead of one spotlight looking at the sentence, 'Multi-Head Attention' splits the embedding into 6 to 32 parallel spotlights ('Heads'). Head 1 might track grammar/verbs, Head 2 tracks pronouns ('it' → 'cat'), and Head 3 tracks punctuation—then all heads merge their findings back together.",
+        liveExample: "In GPT-3 (96 heads) and Llama-3-70B (64 heads), mechanistic interpretability tools like BertViz show specialized heads in action: one head tracks matching Python parentheses '()', while another tracks subject-verb agreement across clauses.",
         jargonTerms: [
           { term: "Attention Head", def: "An independent QKV spotlight focusing on one type of word relationship." },
           { term: "head_dim", def: "Width of each head (emb_dim divided by n_heads, e.g., 384 / 6 = 64)." },
@@ -919,6 +1052,7 @@ class MultiHeadAttention(nn.Module):
         title: "LayerNorm / RMSNorm, Residual Connections & Feed-Forward MLP Blocks",
         duration: "3 Days",
         plainEnglish: "When you stack 12 or 96 Transformer blocks, numbers can drift wildly out of scale and learning signals get lost. 'LayerNorm' re-centers every token's numbers to a clean bell curve, and 'Residual Connections' (x = x + layer(x)) act like an express elevator carrying original info and gradients cleanly top-to-bottom.",
+        liveExample: "Llama 3, Gemma, and Qwen replace standard LayerNorm with RMSNorm (dropping mean subtraction for ~15% faster GPU kernels) inside the exact Pre-Norm residual block structure you build in this module.",
         jargonTerms: [
           { term: "LayerNorm / RMSNorm", def: "Re-scales each token's numbers to mean 0, std 1 so deep layers stay stable." },
           { term: "Residual Connection", def: "Adding the input directly to the output (x + block(x)) as a gradient highway." },
@@ -961,6 +1095,7 @@ class MultiHeadAttention(nn.Module):
         title: "Assembling the Full Decoder-Only GPT Architecture & Parameter Counting",
         duration: "3 Days",
         plainEnglish: "Now we snap all the Lego bricks together! Token IDs enter the bottom, get stamped with positional embeddings, pass through N stacked Transformer Blocks, and exit through a final 'LM Head' linear layer that scores all 50,257 possible next words. 'Weight Tying' shares the input and output word tables to save memory.",
+        liveExample: "Google's Gemma-2B/9B and Meta's Llama-3.2-1B/3B models use the exact weight-tying trick (tok_emb.weight = lm_head.weight) from this module—saving over 250 million parameters on large vocabularies so the model fits comfortably on consumer laptops and phones.",
         jargonTerms: [
           { term: "Decoder-Only GPT", def: "Autoregressive Transformer predicting one next token at a time (GPT/Llama)." },
           { term: "nn.ModuleList", def: "PyTorch's official list wrapper so stacked layers register properly for GPU & training." },
@@ -1004,6 +1139,15 @@ class MultiHeadAttention(nn.Module):
     title: "Pretraining, Evaluation & Text Generation",
     subtitle: "Train your custom GPT from random weights on real text, track loss & perplexity curves, and decode coherent completions.",
     plainBigPicture: "A freshly built GPT starts with random weights—so its first output is pure keyboard-smash gibberish. During 'Pretraining', we feed it Shakespeare or stories, measure its surprise ('Perplexity'), gently warm up and cool down its learning speed, and watch coherent English emerge!",
+    liveAiBridge: {
+      headline: "Where Live Running AIs Use Phase 5 Skills",
+      summary: "Every AI API parameter you configure in production apps—temperature, top_p, max_tokens—and every training stability safeguard used to train frontier models comes straight from Phase 5.",
+      examples: [
+        "OpenAI / Anthropic API Parameters: Setting temperature=0.0 for deterministic JSON extraction or top_p=0.9 for creative writing runs the exact sampling filter you code in Module 5.5.",
+        "Gradient Accumulation & Clipping (Module 5.2): Used on every large GPU cluster to reach multi-million-token batch sizes without exploding gradients.",
+        "Cosine LR Warmup & Decay (Module 5.3): The universal learning-rate curve shown in Meta's Llama and DeepSeek technical reports."
+      ]
+    },
     jargonDecoder: [
       { term: "Pretraining", def: "Teaching a random model language from raw text" },
       { term: "Perplexity", def: "How confused the model is (1 = certain)" },
@@ -1024,6 +1168,7 @@ class MultiHeadAttention(nn.Module):
         title: "Next-Token Prediction Objective & Perplexity Metric",
         duration: "2 Days",
         plainEnglish: "Is a Cross-Entropy loss of 2.3 good or bad? Taking e^2.3 ≈ 10 gives 'Perplexity'—which means the model is roughly as uncertain as rolling a 10-sided die to guess the next word. Lower perplexity = smarter, less surprised language model!",
+        liveExample: "When companies compress an LLM from 16-bit down to 4-bit GGUF for Ollama, engineers check Perplexity on WikiText-2 before and after compression—ensuring perplexity barely moves (e.g., 5.68 → 5.74) so intelligence stays intact.",
         jargonTerms: [
           { term: "Perplexity", def: "exp(loss)—effective number of equally likely next words the model considers." },
           { term: "Validation Split", def: "Held-out 10% of text never shown during training, used for honest grading." },
@@ -1055,6 +1200,7 @@ print(f"Loss: {loss.item():.3f} | Perplexity: {perplexity.item():.2f}")`,
         title: "Pretraining Loop on TinyShakespeare: Gradient Accumulation & Clipping",
         duration: "4 Days",
         plainEnglish: "Your laptop GPU might only fit 8 sentences in memory at once, but LLMs train better when averaging 64 sentences per update. 'Gradient Accumulation' runs 8 small mini-batches and adds up their gradients before stepping! 'Gradient Clipping' acts like a speed limiter so one weird sentence never blows up your weights.",
+        liveExample: "Meta trained Llama 3 using a global batch size of 4 million tokens per optimizer step by combining gradient accumulation across GPUs with max_norm=1.0 gradient clipping—preventing corrupted web documents from crashing multi-week runs.",
         jargonTerms: [
           { term: "Gradient Accumulation", def: "Summing gradients across several mini-batches to simulate a big batch." },
           { term: "Gradient Clipping", def: "Capping giant gradient spikes (max_norm=1.0) to prevent training crashes." },
@@ -1084,6 +1230,7 @@ torch.save({"model": model.state_dict(), "optimizer": optimizer.state_dict(), "s
         title: "Learning Rate Warmup & Cosine Decay Scheduling",
         duration: "2 Days",
         plainEnglish: "Starting training at full speed when weights are totally random is like flooring a cold car engine. 'Linear Warmup' gently ramps up the learning rate over the first few hundred steps, and 'Cosine Decay' smoothly slows down near the finish line so the model parks cleanly in the lowest valley.",
+        liveExample: "Every Llama, Mistral, and Qwen pretraining run publishes a cosine learning-rate curve starting with a 2,000-step linear warmup and decaying down to 10% of peak LR—the exact formula implemented in your get_lr() function.",
         jargonTerms: [
           { term: "LR Warmup", def: "Gradually increasing learning rate from 0 to peak over early steps." },
           { term: "Cosine Decay", def: "Smoothly lowering learning rate along a gentle wave toward the end of training." }
@@ -1119,6 +1266,7 @@ def get_lr(step, warmup_steps, max_steps, max_lr, min_lr):
         title: "Diagnosing Overfitting, Underfitting & Loss Curves",
         duration: "2 Days",
         plainEnglish: "Imagine a student who memorizes exact practice exam answers ('Overfitting') vs. a student who barely studied at all ('Underfitting'). Plotting both Training Loss (practice exam) and Validation Loss (unseen final exam) reveals immediately whether your model is memorizing or genuinely learning patterns.",
+        liveExample: "Production ML teams monitor live train vs. validation loss dashboards in MLflow or Weights & Biases; if validation loss diverges upward during domain fine-tuning, automated early-stopping halts training before the bot starts parroting training data verbatim.",
         jargonTerms: [
           { term: "Overfitting", def: "Train loss drops near 0 while validation loss rises (pure memorization)." },
           { term: "Underfitting", def: "Both train and validation loss stay high (model too small or undertrained)." },
@@ -1149,6 +1297,7 @@ def get_lr(step, warmup_steps, max_steps, max_lr, min_lr):
         title: "Autoregressive Sampling Strategies: Greedy, Temperature, Top-k & Top-p (Nucleus)",
         duration: "3 Days",
         plainEnglish: "'Autoregressive' just means predicting one word, gluing it onto the prompt, and feeding the whole thing back in to predict the next word. Always picking #1 ('Greedy') gets stuck in boring loops; 'Temperature' adjusts creativity, while 'Top-k' and 'Top-p' block absurd tail words from ever being chosen.",
+        liveExample: "Production coding assistants (like Copilot) use low temperature (~0.1–0.2) so syntax stays valid, whereas creative brainstorming chat modes use temperature=0.8 + top_p=0.95—running the exact nucleus masking code you write here.",
         jargonTerms: [
           { term: "Autoregressive", def: "Generating text one token at a time, feeding each output back as new input." },
           { term: "Temperature", def: "Divides logits before Softmax: low (0.2) = focused/factual; high (1.1) = creative." },
@@ -1187,6 +1336,15 @@ sorted_logits[sorted_mask] = float('-inf')`,
     title: "Fine-Tuning, Alignment & Local Deployment",
     subtitle: "Load open pretrained weights into your own PyTorch code, fine-tune for chat instructions with LoRA, and deploy behind FastAPI + Ollama.",
     plainBigPicture: "A base pretrained model is only an autocomplete engine—not yet a helpful Q&A assistant. In this final phase, you load open pretrained weights into your own code, teach the model to answer questions using 'SFT' and 'LoRA' (memory-saving adapters), and wrap it in a live web API.",
+    liveAiBridge: {
+      headline: "Where Live Running AIs Use Phase 6 Skills",
+      summary: "This is how real companies turn raw open-source base models (like Llama 3 or Qwen) into domain-specific enterprise chatbots, coding assistants, and private on-premise APIs.",
+      examples: [
+        "Enterprise Custom AI Assistants: Companies fine-tune open models on internal IT docs and support tickets using SFT (Module 6.2) + LoRA adapters (Module 6.3) on a single GPU.",
+        "Running AI Offline on Laptops (Ollama & LM Studio): Powered by the 4-bit GGUF quantization concepts you learn in Module 6.3.",
+        "Helpful & Safe Chatbot Behavior: Achieved via Direct Preference Optimization (DPO, Module 6.4) and served behind FastAPI microservices (Module 6.5)."
+      ]
+    },
     jargonDecoder: [
       { term: "SFT", def: "Fine-tuning a base model on Q&A chat pairs" },
       { term: "LoRA", def: "Training tiny adapter matrices instead of all weights" },
@@ -1207,6 +1365,7 @@ sorted_logits[sorted_mask] = float('-inf')`,
         title: "Loading Open Pretrained Weights (GPT-2 / Llama) into Custom PyTorch Code",
         duration: "3 Days",
         plainEnglish: "Training a smart model from scratch requires thousands of GPUs. Instead, companies release their trained weight files ('Checkpoints') for free! Here you copy those exact numbers into your own from-scratch PyTorch classes—proving your architecture is 100% authentic.",
+        liveExample: "High-speed inference engines like vLLM, llama.cpp, and TensorRT-LLM rewrite the Transformer forward pass from scratch in C++/CUDA and map open Hugging Face safetensors checkpoints into their custom layers using this exact state_dict() matching process.",
         jargonTerms: [
           { term: "state_dict()", def: "Python dictionary mapping every layer name to its saved weight tensor." },
           { term: "Weight Mapping", def: "Copying pretrained tensors into matching layer names in your custom class." },
@@ -1237,6 +1396,7 @@ for k, v in list(my_sd.items())[:6]:
         title: "Supervised Fine-Tuning (SFT) & Instruction Dataset Formatting",
         duration: "3 Days",
         plainEnglish: "A raw pretrained model just mimics internet text—if you ask 'Explain DNS', it might reply 'Explain HTTP' because it thinks you're writing a list of exam questions! 'Supervised Fine-Tuning (SFT)' trains it on curated Instruction → Answer pairs so it behaves like a helpful assistant.",
+        liveExample: "How Meta turned 'Llama-3-Base' into 'Llama-3-Instruct': they trained on millions of multi-turn ChatML conversations while masking user prompt tokens with ignore_index=-100 so the model only learns to generate helpful assistant replies.",
         jargonTerms: [
           { term: "SFT", def: "Supervised Fine-Tuning on formatted (Instruction, Response) examples." },
           { term: "Prompt Template", def: "Consistent wrapper tags like <|user|> ... <|assistant|> around chats." },
@@ -1265,6 +1425,7 @@ for k, v in list(my_sd.items())[:6]:
         title: "Parameter-Efficient Fine-Tuning (LoRA) & Quantization Basics",
         duration: "3 Days",
         plainEnglish: "Updating billions of weights takes expensive server GPUs. 'LoRA' freezes the original brain and attaches tiny side-notebooks (matrices A and B) that learn only the new task—cutting memory by 90%! 'Quantization' rounds 32-bit decimals down to 4-bit integers so big models run smoothly on a regular laptop.",
+        liveExample: "Cloud platforms like Together AI, Fireworks, and AWS Bedrock host hundreds of customer-specific LoRA adapters on top of a single frozen Llama base model in GPU RAM—swapping tiny ~50 MB A@B matrices per user request in milliseconds.",
         jargonTerms: [
           { term: "LoRA", def: "Low-Rank Adaptation—training tiny side matrices (A @ B) while base weights stay frozen." },
           { term: "Rank (r)", def: "Width of the tiny LoRA bottleneck (e.g., r=8 vs full width 4096)." },
@@ -1301,6 +1462,7 @@ for k, v in list(my_sd.items())[:6]:
         title: "Evaluation Benchmarks, Hallucination Checks & Alignment (DPO Intuition)",
         duration: "2 Days",
         plainEnglish: "LLMs sometimes invent plausible-sounding nonsense ('Hallucinations'). Before shipping a model, we run automated 'pytest' checks on unseen prompts, set temperature=0 for repeatable grading, and use preference alignment ('DPO') to reward honest, helpful replies over unhelpful ones.",
+        liveExample: "Before releasing Llama 3, Qwen, or Mistral, labs run Direct Preference Optimization (DPO) on human-ranked (chosen vs. rejected) pairs to curb hallucinations and run automated pytest-style eval harnesses across coding, math, and JSON formatting.",
         jargonTerms: [
           { term: "Hallucination", def: "When an LLM confidently generates false facts not supported by context." },
           { term: "DPO / RLHF", def: "Training the model to prefer human-approved answers over rejected ones." },
@@ -1332,6 +1494,7 @@ def evaluate_prompt(model, prompt_ids):
         title: "Serving Your Model Locally with FastAPI, Uvicorn & Ollama",
         duration: "3 Days",
         plainEnglish: "Finally, turn your Python script into a real web service! 'FastAPI' creates a clean HTTP endpoint (/v1/generate) where any app can send a prompt and get JSON back, 'Uvicorn' runs that web server locally, and 'Ollama' lets you run compressed open-source models locally for comparison.",
+        liveExample: "Internal enterprise AI gateways and OpenAI-compatible local servers (like vLLM and Ollama's REST API) expose the exact POST /v1/generate JSON schema with Pydantic validation and Uvicorn workers that you build in this final module.",
         jargonTerms: [
           { term: "FastAPI", def: "Modern Python framework for building fast, auto-documented REST APIs." },
           { term: "Pydantic", def: "Data-validation library used by FastAPI to check incoming JSON types automatically." },
@@ -1696,14 +1859,22 @@ export default function App() {
                   href={sw.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group p-3.5 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-teal-400 transition-all flex flex-col justify-between gap-2"
+                  className="group p-3.5 rounded-xl bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-teal-400 transition-all flex flex-col justify-between gap-2.5"
                 >
-                  <div>
+                  <div className="space-y-1.5">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-xs font-bold text-[#17394D] group-hover:text-teal-700">{sw.name}</span>
                       <span className="text-[11px] font-bold text-teal-700 shrink-0">Download &#8599;</span>
                     </div>
-                    <p className="text-[11px] text-slate-600 mt-1 leading-snug">{sw.role}</p>
+                    <p className="text-[11px] font-medium text-slate-700 leading-snug">{sw.role}</p>
+                    <div className="p-2 rounded-lg bg-violet-50/75 border border-violet-200/75 text-[10px] text-[#17394D] leading-snug">
+                      <span className="font-bold text-violet-900">Where Used: </span>
+                      {sw.whereUsed}
+                    </div>
+                    <div className="p-2 rounded-lg bg-emerald-50/70 border border-emerald-200/75 text-[10px] text-[#17394D] leading-snug">
+                      <span className="font-bold text-emerald-900">What You Build: </span>
+                      {sw.whatYouBuild}
+                    </div>
                   </div>
                   <code className="block text-[10px] font-mono bg-white border border-slate-200/80 rounded px-2 py-1 text-slate-600 truncate">
                     {sw.winget}
@@ -1713,44 +1884,63 @@ export default function App() {
             </div>
 
             {/* 14 Python Packages + Copyable Setup Commands */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-              <div className="lg:col-span-5 rounded-xl bg-sky-50/60 border border-sky-200/80 p-4 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2.5">
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-sky-950">
-                      14 Python Packages (PyPI)
+            <div className="space-y-4">
+              <div className="rounded-xl bg-sky-50/60 border border-sky-200/80 p-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                  <div>
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-sky-950 block">
+                      14 Python Packages (PyPI) — Purpose, Live AI Usage &amp; What You Will Build
                     </span>
+                    <span className="text-[11px] text-slate-600">
+                      Click any package badge to open its official PyPI documentation page.
+                    </span>
+                  </div>
+                  <a
+                    href="https://pypi.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-semibold text-sky-800 hover:underline shrink-0"
+                  >
+                    pypi.org &#8599;
+                  </a>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                  {SETUP_PACKAGES.map((pkg) => (
                     <a
-                      href="https://pypi.org/"
+                      key={pkg.name}
+                      href={`https://pypi.org/project/${pkg.name}/`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] font-semibold text-sky-800 hover:underline"
+                      className="group bg-white hover:bg-teal-50/40 border border-sky-200/90 hover:border-teal-400 rounded-xl p-3 text-[#17394D] transition-all flex flex-col justify-between gap-1.5"
                     >
-                      pypi.org &#8599;
+                      <div>
+                        <div className="flex items-center justify-between gap-2">
+                          <strong className="font-mono text-xs text-indigo-700 group-hover:text-teal-700">
+                            {pkg.name}
+                          </strong>
+                          <span className="text-[10px] font-semibold text-slate-400 group-hover:text-teal-700">
+                            PyPI &#8599;
+                          </span>
+                        </div>
+                        <p className="text-[11px] font-semibold text-[#17394D] mt-0.5 leading-snug">{pkg.desc}</p>
+                      </div>
+                      <div className="space-y-1 pt-1.5 border-t border-slate-100 text-[10px] leading-snug">
+                        <p className="text-slate-600">
+                          <strong className="text-violet-900">Where used:</strong> {pkg.whereUsed}
+                        </p>
+                        <p className="text-slate-700">
+                          <strong className="text-emerald-900">You build:</strong> {pkg.whatYouBuild}
+                        </p>
+                      </div>
                     </a>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SETUP_PACKAGES.map((pkg) => (
-                      <a
-                        key={pkg.name}
-                        href={`https://pypi.org/project/${pkg.name}/`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={pkg.desc}
-                        className="inline-flex items-center gap-1 text-[11px] bg-white hover:bg-teal-50 border border-sky-200/90 hover:border-teal-400 rounded-lg px-2 py-1 text-[#17394D] transition-colors"
-                      >
-                        <strong className="font-mono text-indigo-700">{pkg.name}</strong>
-                        <span className="text-slate-500 hidden sm:inline">— {pkg.desc.split(" ")[0]}</span>
-                      </a>
-                    ))}
-                  </div>
+                  ))}
                 </div>
                 <p className="text-[11px] text-slate-600 mt-3 pt-2.5 border-t border-sky-200/70">
                   Tip: Always activate <code className="font-mono bg-white px-1 rounded text-[#17394D]">.venv</code> first so <code className="font-mono bg-white px-1 rounded text-[#17394D]">pip</code> installs cleanly inside your project folder.
                 </p>
               </div>
 
-              <div className="lg:col-span-7 rounded-xl bg-slate-900 border border-slate-800 p-4 flex flex-col justify-between">
+              <div className="rounded-xl bg-slate-900 border border-slate-800 p-4 flex flex-col justify-between">
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-[11px] font-mono font-semibold text-teal-400">
                     Windows PowerShell Setup &amp; Verification Commands
@@ -1882,6 +2072,26 @@ export default function App() {
                           {phase.plainBigPicture}
                         </div>
 
+                        {phase.liveAiBridge && (
+                          <div className="mt-2.5 p-3.5 rounded-xl bg-gradient-to-r from-violet-50/85 via-indigo-50/60 to-white border border-violet-200/85 text-xs text-[#17394D] leading-relaxed">
+                            <div className="flex items-center gap-1.5 mb-1">
+                              <span className="w-2 h-2 rounded-full bg-violet-600 animate-pulse" />
+                              <span className="font-extrabold text-violet-950 uppercase tracking-wider text-[10px]">
+                                {phase.liveAiBridge.headline}
+                              </span>
+                            </div>
+                            <p className="text-slate-700 mb-2">{phase.liveAiBridge.summary}</p>
+                            <ul className="space-y-1">
+                              {phase.liveAiBridge.examples.map((ex, idx) => (
+                                <li key={idx} className="flex items-start gap-1.5 text-[11px] text-[#17394D]">
+                                  <span className="text-violet-600 font-bold shrink-0 mt-px">&rarr;</span>
+                                  <span>{ex}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
                         <div className="mt-2 flex flex-wrap items-center gap-1.5 pt-0.5">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mr-1">
                             Jargon Decoder:
@@ -2003,6 +2213,17 @@ export default function App() {
                                     <span className="font-bold text-sky-900">What is this? </span>
                                     {topic.plainEnglish}
                                   </div>
+
+                                  {topic.liveExample && (
+                                    <div
+                                      className={`mt-2 p-2.5 rounded-lg bg-violet-50/75 border border-violet-200/80 text-[11px] leading-relaxed ${
+                                        checked ? "text-slate-400" : "text-[#17394D]"
+                                      }`}
+                                    >
+                                      <span className="font-bold text-violet-900">Live AI In Action: </span>
+                                      {topic.liveExample}
+                                    </div>
+                                  )}
 
                                   <div className="mt-2 flex flex-wrap gap-1">
                                     {topic.jargonTerms.map((j) => (
@@ -2185,6 +2406,16 @@ export default function App() {
                   ))}
                 </div>
               </div>
+
+              {activeTopic.liveExample && (
+                <div className="bg-gradient-to-br from-violet-50/90 to-indigo-50/50 border border-violet-200/85 rounded-xl p-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-violet-900 mb-1.5 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-violet-600" />
+                    Live Production AI In Action (Real-World Application)
+                  </h3>
+                  <p className="text-sm text-[#17394D] leading-relaxed">{activeTopic.liveExample}</p>
+                </div>
+              )}
 
               <div className="bg-gradient-to-br from-teal-50/80 to-emerald-50/40 border border-teal-200/70 rounded-xl p-4">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-teal-800 mb-1.5">
